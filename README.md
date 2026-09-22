@@ -1,15 +1,5 @@
-# Allium website
+# Allium website — History v8
 
-Drop these files directly into the root of the `alliummc.online` GitHub repository, overwrite the previous versions, commit to `main`, and push.
+GitHub-ready static site. This version starts from the v7 site and adds the History tab without replacing the existing homepage, styling, status widgets, mod browser, map page, download page, branding, or social links.
 
-Routes:
-- `/`
-- `/#mods`
-- `/map/`
-- `/download/`
-- `/join/`
-
-The map page embeds the working BlueMap Cloudflare Worker.
-
-## History tab
-`/history/` contains the Allium chronicle and its screenshot archive. Historical images live in `assets/history/`.
+The History page includes S1/S2 navigation, deeper chronology, known dates, and the complete supplied timestamped screenshot archive.
