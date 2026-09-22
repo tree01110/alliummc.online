@@ -1,5 +1,15 @@
-# Allium website v7
+# Allium website
 
-Copy these files directly into the root of the `alliummc.online` GitHub repository and push to `main`.
+Drop these files directly into the root of the `alliummc.online` GitHub repository, overwrite the previous versions, commit to `main`, and push.
 
-Includes the final homepage/nav polish, live server + Discord status, searchable mod matrix, BlueMap controls, mobile navigation, social metadata, favicon, and custom 404.
+Routes:
+- `/`
+- `/#mods`
+- `/map/`
+- `/download/`
+- `/join/`
+
+The map page embeds the working BlueMap Cloudflare Worker.
+
+## History tab
+`/history/` contains the Allium chronicle and its screenshot archive. Historical images live in `assets/history/`.
