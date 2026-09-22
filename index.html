@@ -2,28 +2,32 @@
 <title>Allium MC | Season 13</title><meta name="theme-color" content="#0b0718"><link rel="stylesheet" href="/style.css"></head><body>
 <nav class="site-nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="/"><img src="/assets/allium-season-13-logo.png" alt="Allium Season 13"><span>ALLIUM</span></a>
+    <a class="brand" href="/"><img src="/assets/allium-season-13-logo.png" alt="Allium Season 13"><span class="brand-allium">ALLIUM</span><span class="brand-season">SEASON 13</span></a>
     <div class="nav-links">
-      <a href="/">HOME</a>
-      <a href="/#mods">MODS</a>
-      <a href="/map/">MAP</a>
-      <a href="/download/">DOWNLOAD</a>
-      <a href="/join/">JOIN</a>
+      <a href="/">HOME</a><a href="/download/">DOWNLOAD</a><a href="/#mods">MODS</a><a href="/map/">MAP</a>
+    </div>
+    <div class="nav-socials">
+      <a href="https://discord.gg/eySfvMJ" target="_blank" rel="noopener" aria-label="Discord" title="Discord"><img src="/assets/discord-icon.png" alt=""></a>
+      <a href="https://www.instagram.com/allium.server/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><img src="/assets/instagram-icon.png" alt=""></a>
+      <a href="https://alliummc.buycraft.net/" target="_blank" rel="noopener" aria-label="Donate" title="Donate"><img src="/assets/donate-icon.png" alt=""></a>
     </div>
   </div>
 </nav>
 <main>
-<section class="hero"><div class="wrap hero-grid"><div>
+<section class="hero"><div class="wrap hero-grid"><div class="hero-copy">
 <div class="eyebrow">ALLIUM SEASON 13</div>
 <h1><span class="gradient-text">ALLIUM</span><br>SEASON 13</h1>
 <p>A heavily modded 1.21.1 server focused on Create, magic, vehicles, exploration, building, and doing stupidly complicated things that absolutely did not need to be automated.</p>
 <p>Season 13 adds Create: Aeronautics, Deep Seas, a huge expansion to Create, custom worldgen, Ars Nouveau, and a lot more.</p>
 <div class="actions"><a class="button" href="https://discord.gg/eySfvMJ" target="_blank" rel="noopener">JOIN DISCORD</a><a class="button secondary" href="/download/">INSTALL THE PACK</a></div>
-<div class="live-stats"><div class="stat"><span class="stat-label">SERVER</span><strong id="mcPlayers">Checking…</strong><small>players online</small></div><div class="stat"><img src="/assets/discord-icon.png" alt=""><span class="stat-label">DISCORD</span><strong id="discordMembers">Checking…</strong><small id="discordOnline">members</small></div></div>
-<div class="ip"><code>play.alliummc.online</code><button class="button secondary" id="copyText" onclick="copyIP()">COPY IP</button></div>
-<div class="social-links"><a href="https://discord.gg/eySfvMJ" target="_blank" rel="noopener"><img src="/assets/discord-icon.png" alt="">Discord</a><a href="https://www.instagram.com/allium.server/" target="_blank" rel="noopener"><img src="/assets/instagram-icon.png" alt="">Instagram</a><a href="https://alliummc.buycraft.net/" target="_blank" rel="noopener"><img src="/assets/donate-icon.png" alt="">Donate</a></div>
+<p class="greylist-note"><em>Allium uses a greylist. New players need to join our Discord and complete a quick application before they can connect.</em></p>
+<div class="server-status-bar">
+  <div class="status-item"><span class="stat-label">SERVER</span><strong id="serverState">CHECKING</strong><small>Season 13</small></div>
+  <div class="status-item"><span class="stat-label">PLAYERS</span><strong id="mcPlayers">Checking…</strong><small>online</small></div>
+  <div class="status-item discord-status"><img src="/assets/discord-icon.png" alt=""><div><span class="stat-label">DISCORD</span><strong id="discordMembers">Checking…</strong><small id="discordOnline">members</small></div></div>
+  <div class="status-item address-status"><span class="stat-label">SERVER ADDRESS</span><code>play.alliummc.online</code><button class="copy-link" id="copyText" onclick="copyIP()">COPY</button></div>
+</div>
 </div><img class="hero-logo hero-showcase" src="/assets/allium-aircraft-showcase.png" alt="Allium aircraft builds in Season 13"></div></section>
-
 <section id="mods"><div class="wrap"><h2 class="section-title">Mods</h2><p class="lead">Hover over a mod for a description. Click it to open its project page.</p>
 <div id="modSections"></div></div></section>
 </main><footer><div class="wrap footer-inner"><span>ALLIUM • SEASON 13</span><code>play.alliummc.online</code></div></footer>

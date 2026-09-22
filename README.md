@@ -1,12 +1,5 @@
-# Allium website
+# Allium Season 13 website
 
-Drop these files directly into the root of the `alliummc.online` GitHub repository, overwrite the previous versions, commit to `main`, and push.
+Static site for alliummc.online. Upload these files and folders directly to the repository root used by Cloudflare continuous deployment.
 
-Routes:
-- `/`
-- `/#mods`
-- `/map/`
-- `/download/`
-- `/join/`
-
-The map page embeds the working BlueMap Cloudflare Worker.
+Current navigation: Home, Download, Mods, Map. BlueMap remains proxied through the existing working Worker URL.

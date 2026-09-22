@@ -69,13 +69,13 @@ async function loadMods(){
 document.addEventListener('DOMContentLoaded',loadMods);
 
 async function loadLiveStats(){
- const mc=document.getElementById('mcPlayers');
+ const mc=document.getElementById('mcPlayers'), state=document.getElementById('serverState');
  if(mc){
   try{
    const r=await fetch('https://api.mcstatus.io/v2/status/java/play.alliummc.online');
    const d=await r.json();
-   mc.textContent=d.online ? `${d.players.online} / ${d.players.max}` : 'Offline';
-  }catch{mc.textContent='Unavailable'}
+   mc.textContent=d.online ? `${d.players.online} / ${d.players.max}` : 'Offline'; if(state) state.textContent=d.online?'ONLINE':'OFFLINE';
+  }catch{mc.textContent='Unavailable';if(state)state.textContent='UNKNOWN'}
  }
  const dm=document.getElementById('discordMembers'), dol=document.getElementById('discordOnline');
  if(dm){
