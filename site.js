@@ -67,3 +67,24 @@ async function loadMods(){
  for(const el of unmatched) await searchModrinth(el,el.dataset.name);
 }
 document.addEventListener('DOMContentLoaded',loadMods);
+
+async function loadLiveStats(){
+ const mc=document.getElementById('mcPlayers');
+ if(mc){
+  try{
+   const r=await fetch('https://api.mcstatus.io/v2/status/java/play.alliummc.online');
+   const d=await r.json();
+   mc.textContent=d.online ? `${d.players.online} / ${d.players.max}` : 'Offline';
+  }catch{mc.textContent='Unavailable'}
+ }
+ const dm=document.getElementById('discordMembers'), dol=document.getElementById('discordOnline');
+ if(dm){
+  try{
+   const r=await fetch('https://discord.com/api/v10/invites/eySfvMJ?with_counts=true');
+   const d=await r.json();
+   dm.textContent=(d.approximate_member_count ?? '—').toLocaleString?.() || d.approximate_member_count || '—';
+   if(dol) dol.textContent=`${(d.approximate_presence_count ?? '—').toLocaleString?.() || d.approximate_presence_count || '—'} online`;
+  }catch{dm.textContent='Unavailable';if(dol)dol.textContent='Discord'}
+ }
+}
+document.addEventListener('DOMContentLoaded',loadLiveStats);
