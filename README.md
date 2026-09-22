@@ -1,8 +1,6 @@
 # Allium website
 
-These files belong directly in the repository root.
-
-Cloudflare should deploy this repository root. Do not put the site inside an `allium-site-fixed` or other wrapper folder.
+Drop these files directly into the root of the `alliummc.online` GitHub repository, overwrite the previous versions, commit to `main`, and push.
 
 Routes:
 - `/`
@@ -10,3 +8,5 @@ Routes:
 - `/map/`
 - `/download/`
 - `/join/`
+
+The map page embeds the working BlueMap Cloudflare Worker.
