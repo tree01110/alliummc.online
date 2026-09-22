@@ -1,90 +1,18 @@
-
-function copyIP(){
- navigator.clipboard.writeText('play.alliummc.online');
- const e=document.getElementById('copyText'); if(e){e.textContent='COPIED';setTimeout(()=>e.textContent='COPY IP',1400)}
-}
-const sectionInfo={
- content:['CONTENT MODS','Everything that adds actual content to the pack.'],
- client:['CLIENT-SIDE','Client-only performance, visual and QOL mods.'],
- dependencies:['DEPENDENCIES & LIBRARIES','Required by other mods. Not particularly exciting.'],
- server:['SERVER-SIDE','Server utilities, performance and administration.']
-};
-function cleanFile(s){
- return s.replace(/\.jar$/i,'')
- .replace(/[-_](?:neoforge|forge)?[-_]?(?:mc)?\d[\w.+-]*$/i,'')
- .replace(/[-_]/g,' ').replace(/\s+/g,' ').trim();
-}
+const DISCORD_INVITE='https://discord.gg/eySfvMJ';
+const MAP_URL='https://allium-bluemap.wilson-bnj.workers.dev/';
+function copyIP(){navigator.clipboard.writeText('play.alliummc.online');const e=document.getElementById('copyText');if(e){e.textContent='COPIED!';setTimeout(()=>e.textContent='COPY',1400)}}
+const sectionInfo={content:['CONTENT MODS','Everything that adds actual content to the pack.'],client:['CLIENT-SIDE','Client-only performance, visual and QOL mods.'],dependencies:['DEPENDENCIES & LIBRARIES','Required by other mods. Not particularly exciting.'],server:['SERVER-SIDE','Server utilities, performance and administration.']};
+function cleanFile(s){return s.replace(/\.jar$/i,'').replace(/[-_](?:neoforge|forge)?[-_]?(?:mc)?\d[\w.+-]*$/i,'').replace(/[-_]/g,' ').replace(/\s+/g,' ').trim()}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function tileContents(title, icon, desc, source='PROJECT'){
- return `<div class="mod-name">${esc(title)}</div><div class="mod-icon-wrap">${
-   icon?`<img loading="lazy" src="${esc(icon)}" alt="${esc(title)}" onerror="this.src='/assets/allium-season-13-logo.png'">`
-       :`<img loading="lazy" src="/assets/allium-season-13-logo.png" alt="">`
- }<div class="tip"><b>${esc(title)}</b><span>${esc(desc||'Project information unavailable.')}</span><em>VIEW ${esc(source)} ↗</em></div></div>`;
-}
-async function searchModrinth(el, name){
- try{
-   const r=await fetch('https://api.modrinth.com/v2/search?limit=1&query='+encodeURIComponent(name));
-   if(!r.ok)return false;
-   const data=await r.json(), hit=data.hits&&data.hits[0];
-   if(!hit)return false;
-   el.href='https://modrinth.com/project/'+hit.project_id;
-   el.innerHTML=tileContents(hit.title,hit.icon_url,hit.description,'ON MODRINTH');
-   return true;
- }catch{return false}
-}
-async function loadMods(){
- const root=document.getElementById('modSections'); if(!root||!window.ALLIUM_MODS)return;
- for(const key of ['content','client','dependencies','server']){
-   const mods=window.ALLIUM_MODS.filter(x=>x.section===key);
-   const sec=document.createElement('div'); sec.className='mod-section';
-   sec.innerHTML=`<div class="mod-head"><div><h3>${sectionInfo[key][0]}</h3><p>${sectionInfo[key][1]}</p></div><span class="mod-count">${mods.length} MODS</span></div><div class="mod-grid"></div>`;
-   root.appendChild(sec);
-   const grid=sec.querySelector('.mod-grid');
-   for(const mod of mods){
-     const name=cleanFile(mod.file);
-     const a=document.createElement('a'); a.className='mod-tile'; a.dataset.id=mod.id||''; a.dataset.name=name;
-     a.href=mod.id?`https://modrinth.com/project/${mod.id}`:`https://modrinth.com/mods?q=${encodeURIComponent(name)}`;
-     a.target='_blank'; a.rel='noopener';
-     a.innerHTML=tileContents(name,null,mod.id?'Loading project information…':'Looking for the project page…');
-     grid.appendChild(a);
-   }
- }
- const ids=[...new Set(window.ALLIUM_MODS.map(x=>x.id).filter(Boolean))];
- for(let i=0;i<ids.length;i+=50){
-   try{
-     const r=await fetch('https://api.modrinth.com/v2/projects?ids='+encodeURIComponent(JSON.stringify(ids.slice(i,i+50))));
-     if(!r.ok)continue;
-     for(const p of await r.json()){
-       document.querySelectorAll(`.mod-tile[data-id="${CSS.escape(p.id)}"]`).forEach(el=>{
-         el.href='https://modrinth.com/mod/'+p.slug;
-         el.innerHTML=tileContents(p.title,p.icon_url,p.description,'ON MODRINTH');
-       });
-     }
-   }catch(e){console.warn('Modrinth metadata failed',e)}
- }
- // Server-only/custom entries often had no stored project ID. Search Modrinth by name.
- const unmatched=[...document.querySelectorAll('.mod-tile:not([data-id]),.mod-tile[data-id=""]')];
- for(const el of unmatched) await searchModrinth(el,el.dataset.name);
-}
-document.addEventListener('DOMContentLoaded',loadMods);
-
-async function loadLiveStats(){
- const mc=document.getElementById('mcPlayers'), state=document.getElementById('serverState');
- if(mc){
-  try{
-   const r=await fetch('https://api.mcstatus.io/v2/status/java/play.alliummc.online');
-   const d=await r.json();
-   mc.textContent=d.online ? `${d.players.online} / ${d.players.max}` : 'Offline'; if(state) state.textContent=d.online?'ONLINE':'OFFLINE';
-  }catch{mc.textContent='Unavailable';if(state)state.textContent='UNKNOWN'}
- }
- const dm=document.getElementById('discordMembers'), dol=document.getElementById('discordOnline');
- if(dm){
-  try{
-   const r=await fetch('https://discord.com/api/v10/invites/eySfvMJ?with_counts=true');
-   const d=await r.json();
-   dm.textContent=(d.approximate_member_count ?? '—').toLocaleString?.() || d.approximate_member_count || '—';
-   if(dol) dol.textContent=`${(d.approximate_presence_count ?? '—').toLocaleString?.() || d.approximate_presence_count || '—'} online`;
-  }catch{dm.textContent='Unavailable';if(dol)dol.textContent='Discord'}
- }
-}
-document.addEventListener('DOMContentLoaded',loadLiveStats);
+function tileContents(title,icon,desc,source='PROJECT'){return `<div class="mod-name">${esc(title)}</div><div class="mod-icon-wrap">${icon?`<img src="${esc(icon)}" alt="${esc(title)}" onerror="this.src='/assets/allium-flower.png'">`:`<img src="/assets/allium-flower.png" alt="">`}<div class="tip"><b>${esc(title)}</b><span>${esc(desc||'Project information unavailable.')}</span><em>VIEW ${esc(source)} ↗</em></div></div>`}
+async function searchModrinth(el,name){try{const r=await fetch('https://api.modrinth.com/v2/search?limit=1&query='+encodeURIComponent(name));if(!r.ok)return false;const data=await r.json(),hit=data.hits&&data.hits[0];if(!hit)return false;el.href='https://modrinth.com/project/'+hit.project_id;el.dataset.title=hit.title;el.innerHTML=tileContents(hit.title,hit.icon_url,hit.description,'ON MODRINTH');return true}catch{return false}}
+function highlightName(el,q){const n=el.querySelector('.mod-name');if(!n)return;const title=el.dataset.title||el.dataset.name||'';if(!q){n.textContent=title;return}const i=title.toLowerCase().indexOf(q.toLowerCase());if(i<0){n.textContent=title;return}n.innerHTML=esc(title.slice(0,i))+'<mark>'+esc(title.slice(i,i+q.length))+'</mark>'+esc(title.slice(i+q.length))}
+function filterMods(){const input=document.getElementById('modSearch');if(!input)return;const q=input.value.trim();let shown=0,total=document.querySelectorAll('.mod-tile').length;document.querySelectorAll('.mod-section').forEach(sec=>{let sectionShown=0;sec.querySelectorAll('.mod-tile').forEach(el=>{const hay=(el.dataset.title+' '+el.dataset.name).toLowerCase();const ok=!q||hay.includes(q.toLowerCase());el.hidden=!ok;if(ok){shown++;sectionShown++}highlightName(el,q)});sec.hidden=!!q&&!sectionShown});const c=document.getElementById('modSearchCount');if(c)c.textContent=q?`${shown} of ${total} mods`:'';const empty=document.getElementById('modEmpty');if(empty){empty.hidden=shown!==0;empty.textContent=`No mods found for “${q}”.`}const clear=document.getElementById('clearModSearch');if(clear)clear.classList.toggle('visible',!!q)}
+async function loadMods(){const root=document.getElementById('modSections');if(!root||!window.ALLIUM_MODS)return;const total=window.ALLIUM_MODS.length;const tc=document.getElementById('totalModCount');if(tc)tc.textContent=`${total} MODS`;for(const key of ['content','client','dependencies','server']){const mods=window.ALLIUM_MODS.filter(x=>x.section===key);const sec=document.createElement('div');sec.className='mod-section';sec.id=key;sec.innerHTML=`<div class="mod-head"><div><h3>${sectionInfo[key][0]}</h3><p>${sectionInfo[key][1]}</p></div><span class="mod-count">${mods.length} MODS</span></div><div class="mod-grid"></div>`;root.appendChild(sec);const grid=sec.querySelector('.mod-grid');for(const mod of mods){const name=cleanFile(mod.file),a=document.createElement('a');a.className='mod-tile';a.dataset.id=mod.id||'';a.dataset.name=name;a.dataset.title=name;a.href=mod.id?`https://modrinth.com/project/${mod.id}`:`https://modrinth.com/mods?q=${encodeURIComponent(name)}`;a.target='_blank';a.rel='noopener';a.innerHTML=tileContents(name,null,mod.id?'Loading project information…':'Looking for the project page…');grid.appendChild(a)}}const ids=[...new Set(window.ALLIUM_MODS.map(x=>x.id).filter(Boolean))];for(let i=0;i<ids.length;i+=50){try{const r=await fetch('https://api.modrinth.com/v2/projects?ids='+encodeURIComponent(JSON.stringify(ids.slice(i,i+50))));if(!r.ok)continue;for(const p of await r.json()){document.querySelectorAll(`.mod-tile[data-id="${CSS.escape(p.id)}"]`).forEach(el=>{el.href='https://modrinth.com/mod/'+p.slug;el.dataset.title=p.title;el.innerHTML=tileContents(p.title,p.icon_url,p.description,'ON MODRINTH')})}}catch(e){console.warn('Modrinth metadata failed',e)}}const unmatched=[...document.querySelectorAll('.mod-tile[data-id=""]')];for(const el of unmatched)await searchModrinth(el,el.dataset.name);filterMods()}
+function setupModTools(){const input=document.getElementById('modSearch'),clear=document.getElementById('clearModSearch');if(input){input.addEventListener('input',filterMods);clear?.addEventListener('click',()=>{input.value='';filterMods();input.focus()});document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();input.focus()}if(e.key==='Escape'&&document.activeElement===input){input.value='';filterMods();input.blur()}})}}
+function setupNav(){const path=location.pathname;document.querySelectorAll('.nav-links a').forEach(a=>{const h=a.getAttribute('href');if((path==='/'&&h==='/')||(path.startsWith('/download')&&h.includes('download'))||(path.startsWith('/map')&&h.includes('map'))||(location.hash.startsWith('#')&&h.includes('#mods')))a.classList.add('active')});const nav=document.querySelector('.nav-inner');if(nav&&!nav.querySelector('.mobile-toggle')){const b=document.createElement('button');b.className='mobile-toggle';b.setAttribute('aria-label','Toggle navigation');b.textContent='☰';b.onclick=()=>nav.classList.toggle('mobile-open');nav.insertBefore(b,nav.querySelector('.nav-links'))}}
+async function loadLiveStats(){const mc=document.getElementById('mcPlayers'),state=document.getElementById('serverState'),dot=document.getElementById('serverDot'),ver=document.getElementById('serverVersion'),pop=document.getElementById('playerPopover');try{const r=await fetch('https://api.mcstatus.io/v2/status/java/play.alliummc.online');const d=await r.json();if(mc)mc.textContent=d.online?`${d.players.online} / ${d.players.max}`:'Offline';if(state)state.textContent=d.online?'ONLINE':'OFFLINE';if(dot)dot.className='status-dot '+(d.online?'online':'offline');if(ver&&d.online)ver.textContent=`Minecraft ${d.version?.name_clean||'1.21.1'} · NeoForge`;if(pop){const list=d.players?.list||[];pop.innerHTML=list.length?list.map(p=>`<span><img src="https://mc-heads.net/avatar/${encodeURIComponent(p.uuid||p.name_clean||p.name_raw)}/24" alt="">${esc(p.name_clean||p.name_raw||'Player')}</span>`).join(''):'No player names are exposed by the server.'}}catch{if(mc)mc.textContent='Unavailable';if(state)state.textContent='UNKNOWN';if(dot)dot.className='status-dot unknown'}
+const dm=document.getElementById('discordMembers'),dol=document.getElementById('discordOnline');try{const r=await fetch('https://discord.com/api/v10/invites/eySfvMJ?with_counts=true');const d=await r.json();const members=d.approximate_member_count??'—',online=d.approximate_presence_count??'—';if(dm)dm.textContent=Number(members).toLocaleString?.()||members;if(dol)dol.textContent=`${Number(online).toLocaleString?.()||online} online`;document.querySelectorAll('.nav-socials a[title="Discord"]').forEach(a=>a.title=`Discord · ${members} members · ${online} online`)}catch{if(dm)dm.textContent='Unavailable';if(dol)dol.textContent='Discord'}}
+async function checkMap(){const dots=document.querySelectorAll('.map-dot'),mapNav=document.querySelector('.nav-links a[href="/map/"]');try{await fetch(MAP_URL,{mode:'no-cors',cache:'no-store'});dots.forEach(d=>d.className='status-dot map-dot online');if(mapNav)mapNav.classList.add('map-online');const t=document.getElementById('mapPageStatus');if(t)t.textContent='Live Season 13 world map'}catch{dots.forEach(d=>d.className='status-dot map-dot unknown');const t=document.getElementById('mapPageStatus');if(t)t.textContent='Map status unavailable'}}
+function setupBackToTop(){const b=document.createElement('button');b.id='backToTop';b.className='back-to-top';b.textContent='↑ TOP';b.onclick=()=>scrollTo({top:0,behavior:'smooth'});document.body.appendChild(b);const f=()=>b.classList.toggle('visible',scrollY>900);addEventListener('scroll',f,{passive:true});f()}
+document.addEventListener('DOMContentLoaded',async()=>{setupNav();setupModTools();await loadMods();loadLiveStats();checkMap();setupBackToTop();document.querySelectorAll('code').forEach(c=>{if(c.textContent.trim()==='play.alliummc.online'){c.classList.add('click-copy');c.title='Click to copy';c.addEventListener('click',copyIP)}})});

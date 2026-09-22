@@ -1,5 +1,5 @@
-# Allium Season 13 website
+# Allium website v7
 
-Static site for alliummc.online. Upload these files and folders directly to the repository root used by Cloudflare continuous deployment.
+Copy these files directly into the root of the `alliummc.online` GitHub repository and push to `main`.
 
-Current navigation: Home, Download, Mods, Map. BlueMap remains proxied through the existing working Worker URL.
+Includes the final homepage/nav polish, live server + Discord status, searchable mod matrix, BlueMap controls, mobile navigation, social metadata, favicon, and custom 404.
