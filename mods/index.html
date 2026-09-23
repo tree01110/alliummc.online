@@ -1,1 +1,36 @@
-<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/#mods"><link rel="canonical" href="/#mods"><script>location.replace('/#mods')</script></head><body><a href="/#mods">Open the Allium mod list</a></body></html>
+<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/#mods"><link rel="canonical" href="/#mods"><script>location.replace('/#mods')</script>
+<style id="history-mobile-hamburger-fix">
+@media (max-width: 760px) {
+  .hamburger,
+  .menu-toggle,
+  .mobile-menu-toggle,
+  .nav-toggle {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 10002;
+  }
+  .site-nav.open,
+  .nav-links.open,
+  .mobile-nav.open {
+    display: flex !important;
+  }
+}
+</style>
+
+</head><body><a href="/#mods">Open the Allium mod list</a><script id="history-mobile-hamburger-js">
+document.addEventListener('DOMContentLoaded', function () {
+  const btn = document.querySelector('.hamburger, .menu-toggle, .mobile-menu-toggle, .nav-toggle');
+  const nav = document.querySelector('.site-nav, .nav-links, .mobile-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function () {
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+</script>
+
+</body></html>

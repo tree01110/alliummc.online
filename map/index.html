@@ -1,4 +1,26 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Map | Allium</title><meta name="theme-color" content="#0b0718"><meta name="description" content="Allium Season 13 is a heavily modded Minecraft 1.21.1 survival multiplayer server built around Create, magic, vehicles, exploration and building."><meta property="og:title" content="Allium | Season 13"><meta property="og:description" content="Create, magic, vehicles, exploration, building, and making simple problems unnecessarily complicated."><meta property="og:image" content="https://alliummc.online/assets/allium-aircraft-showcase.png"><meta property="og:type" content="website"><meta property="og:url" content="https://alliummc.online/"><meta name="twitter:card" content="summary_large_image"><link rel="icon" type="image/png" href="/assets/allium-flower.png"><link rel="stylesheet" href="/style.css"></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Map | Allium</title><meta name="theme-color" content="#0b0718"><meta name="description" content="Allium Season 13 is a heavily modded Minecraft 1.21.1 survival multiplayer server built around Create, magic, vehicles, exploration and building."><meta property="og:title" content="Allium | Season 13"><meta property="og:description" content="Create, magic, vehicles, exploration, building, and making simple problems unnecessarily complicated."><meta property="og:image" content="https://alliummc.online/assets/allium-aircraft-showcase.png"><meta property="og:type" content="website"><meta property="og:url" content="https://alliummc.online/"><meta name="twitter:card" content="summary_large_image"><link rel="icon" type="image/png" href="/assets/allium-flower.png"><link rel="stylesheet" href="/style.css">
+<style id="history-mobile-hamburger-fix">
+@media (max-width: 760px) {
+  .hamburger,
+  .menu-toggle,
+  .mobile-menu-toggle,
+  .nav-toggle {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 10002;
+  }
+  .site-nav.open,
+  .nav-links.open,
+  .mobile-nav.open {
+    display: flex !important;
+  }
+}
+</style>
+
+</head><body>
 <nav class="site-nav">
   <div class="wrap nav-inner">
     <a class="brand" href="/"><img src="/assets/allium-season-13-logo.png" alt="Allium Season 13"><span class="brand-allium">ALLIUM</span><span class="brand-season">SEASON 13</span></a>
@@ -12,4 +34,17 @@
     </div>
   </div>
 </nav><main class="map-page"><div class="mapbar"><strong><i class="status-dot map-dot unknown" id="mapPageDot"></i> ALLIUM BLUEMAP</strong><span id="mapPageStatus">Live Season 13 world map</span><a href="https://allium-bluemap.wilson-bnj.workers.dev/" target="_blank" rel="noopener">OPEN FULL MAP ↗</a></div>
-<iframe class="mapframe" src="https://allium-bluemap.wilson-bnj.workers.dev/" title="Allium BlueMap" allowfullscreen></iframe></main><script src="/site.js"></script></body></html>
+<iframe class="mapframe" src="https://allium-bluemap.wilson-bnj.workers.dev/" title="Allium BlueMap" allowfullscreen></iframe></main><script src="/site.js"></script><script id="history-mobile-hamburger-js">
+document.addEventListener('DOMContentLoaded', function () {
+  const btn = document.querySelector('.hamburger, .menu-toggle, .mobile-menu-toggle, .nav-toggle');
+  const nav = document.querySelector('.site-nav, .nav-links, .mobile-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function () {
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+</script>
+
+</body></html>
