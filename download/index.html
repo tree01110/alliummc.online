@@ -19,6 +19,9 @@
   }
 }
 </style>
+<style id="install-guide-video-style">
+.install-guide{margin-top:34px;padding:24px;background:linear-gradient(145deg,#17112fdd,#0e0b20dd);border:1px solid var(--line);border-radius:13px}.install-guide .tag{margin-bottom:7px}.install-guide h2{font-size:28px;margin:0 0 8px}.install-guide p{color:var(--muted);line-height:1.6;margin:0 0 18px}.install-guide video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#05040b;border:1px solid #392c60;border-radius:10px}
+</style>
 
 </head><body><nav class="site-nav">
   <div class="wrap nav-inner">
@@ -40,7 +43,9 @@
 <div class="card"><div class="tag">STEP 01</div><img class="step-icon pixel-icon" src="/assets/prism-logo.png" alt="Prism Launcher"><h3>Install Prism Launcher</h3><p>Open the official Prism Launcher website. Download Prism for your computer, install it normally, and open it.</p><div class="actions"><a class="button" href="https://prismlauncher.org/" target="_blank" rel="noopener">OPEN PRISM WEBSITE ↗</a></div></div>
 <div class="card"><div class="tag">STEP 02</div><img class="step-icon pixel-icon" src="/assets/github-icon.png" alt="GitHub"><h3>Import Allium</h3><p>In Prism, select <b>Add Instance</b> in the top-left corner. Select <b>Import</b>, then paste this URL into the text box:</p><div class="copybox"><input id="packurl" readonly value="https://github.com/tree01110/allium13/releases/download/v1.0.0/Allium.Season.13.zip"><button class="button secondary" onclick="navigator.clipboard.writeText(document.getElementById('packurl').value);this.textContent='COPIED'">COPY</button></div></div>
 <div class="card"><div class="tag">STEP 03</div><img class="step-icon pixel-icon" src="/assets/allium-flower.png" alt="Allium"><h3>Open Allium</h3><p>Once the import finishes processing, double-click the new <b>Allium</b> instance to launch it. The modpack will install itself automatically. You will be asked whether to keep <b>Distant Horizons</b> enabled; leave it checked unless you need to reduce memory usage. After installation completes, Minecraft will open automatically. From then on, simply open Prism and double-click the Allium instance to play.</p></div>
-</div><div class="notice"><b>Server address:</b> play.alliummc.online</div></div></main><script src="/site.js"></script><script id="history-mobile-hamburger-js">
+</div>
+<section class="install-guide" aria-labelledby="install-guide-title"><div class="tag">VIDEO GUIDE</div><h2 id="install-guide-title">Need help installing?</h2><p>Follow along with the complete Allium installation process below.</p><video controls preload="metadata" playsinline><source src="/assets/install-guide-1080p.mp4" type="video/mp4">Your browser does not support HTML5 video.</video></section>
+<div class="notice"><b>Server address:</b> play.alliummc.online</div></div></main><script src="/site.js"></script><script id="history-mobile-hamburger-js">
 document.addEventListener('DOMContentLoaded', function () {
   const btn = document.querySelector('.hamburger, .menu-toggle, .mobile-menu-toggle, .nav-toggle');
   const nav = document.querySelector('.site-nav, .nav-links, .mobile-nav');
