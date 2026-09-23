@@ -22,31 +22,6 @@
 <section class="archive-feature"><div class="wrap"><a class="archive-card" href="/history/" id="archiveCard"><div><div class="eyebrow">FROM THE ARCHIVES</div><h2>A random moment from Allium history</h2><p id="archiveCaption">Loading an archived screenshot…</p></div><img alt="Random screenshot from Allium history" id="archiveImage" loading="lazy"/></a></div></section><section id="mods"><div class="wrap"><div class="mods-title-row"><div><h2 class="section-title">Mods</h2><p class="lead">Hover over a mod for a description. Click it to open its project page.</p></div><strong class="total-mod-count" id="totalModCount"></strong></div><div class="mod-tools"><div class="mod-search-wrap"><input aria-label="Search mods" autocomplete="off" class="mod-search" id="modSearch" placeholder="Search mods…" type="search"/><button aria-label="Clear search" class="clear-search" id="clearModSearch">×</button></div><span class="search-count" id="modSearchCount"></span><nav aria-label="Mod sections" class="mod-jumps"><a href="#content">CONTENT</a><a href="#client">CLIENT</a><a href="#dependencies">LIBRARIES</a><a href="#server">SERVER</a></nav></div><div class="mod-empty" hidden="" id="modEmpty"></div><div id="modSections"></div></div></section>
 </main>
 <script src="/mods-data.js"></script><script src="/site.js"></script>
-<script id="player-head-tooltip-enhancer">
-(function () {
-  function enhancePlayerHeads() {
-    document.querySelectorAll('#playerHeads img[title]').forEach(function(img) {
-      if (img.parentElement && img.parentElement.classList.contains('player-head-wrap')) return;
-      var name = img.getAttribute('title');
-      if (!name) return;
-      img.removeAttribute('title');
-      var wrap = document.createElement('span');
-      wrap.className = 'player-head-wrap';
-      wrap.tabIndex = 0;
-      var tip = document.createElement('span');
-      tip.className = 'player-head-tooltip';
-      tip.textContent = name;
-      img.parentNode.insertBefore(wrap, img);
-      wrap.appendChild(img);
-      wrap.appendChild(tip);
-    });
-  }
-  document.addEventListener('DOMContentLoaded', function() {
-    enhancePlayerHeads();
-    var target = document.getElementById('playerHeads');
-    if (target) new MutationObserver(enhancePlayerHeads).observe(target, {childList:true, subtree:true});
-  });
-})();
-</script>
+
 
 </body></html>
