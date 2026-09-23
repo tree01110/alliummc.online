@@ -148,3 +148,51 @@ footer{border-top:1px solid var(--line);padding:27px 0;color:var(--muted);font-s
   .status-item:last-child{border-bottom:0!important}
   .status-item:nth-child(5){grid-column:auto}
 }
+
+
+/* 2026-09-22: coherent live-status dashboard */
+.server-status-bar{
+  width:min(940px,calc(100vw - 80px));
+  max-width:none;
+  grid-template-columns:1.05fr 1.35fr 1.12fr 1.28fr 1.55fr;
+  overflow:visible;
+  position:relative;
+  z-index:4;
+}
+.server-status-bar .status-item{
+  padding:17px 18px;
+  min-height:112px;
+  justify-content:flex-start;
+  overflow:visible;
+}
+.server-status-bar .stat-label{
+  display:block;
+  min-height:15px;
+  margin-bottom:9px;
+  white-space:nowrap;
+}
+.server-state-line{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.server-state-line .status-dot{margin:0;flex:0 0 auto}
+.player-heads{gap:7px;overflow:visible;min-height:30px}
+.player-heads img{width:28px;height:28px}
+.player-heads .player-total{margin-left:6px;white-space:nowrap}
+.discord-status{display:flex;flex-direction:column;align-items:stretch;gap:0;position:relative;padding-bottom:30px!important}
+.discord-main{display:flex!important;flex-direction:row!important;align-items:center;gap:10px;min-width:0}
+.discord-main img{flex:0 0 29px}
+.discord-numbers{display:flex!important;flex-direction:column!important;min-width:0}
+.discord-join{right:14px;bottom:11px}
+.age-status strong{font-size:16px}
+.address-status{padding-right:18px!important;padding-bottom:34px!important}
+.address-status code{overflow:visible;text-overflow:clip}
+.copy-link{right:12px;bottom:10px}
+
+@media(max-width:800px){
+  .server-status-bar{width:100%;grid-template-columns:repeat(2,minmax(0,1fr));overflow:hidden}
+  .server-status-bar .status-item{min-height:96px;border-bottom:1px solid var(--line)}
+  .server-status-bar .status-item:nth-child(2n){border-right:0}
+  .server-status-bar .status-item:last-child{grid-column:1/-1;border-bottom:0}
+}
+@media(max-width:500px){
+  .server-status-bar{grid-template-columns:1fr}
+  .server-status-bar .status-item,.server-status-bar .status-item:last-child{grid-column:auto;border-right:0}
+}
