@@ -28,7 +28,7 @@ async function loadLiveStats(){
       if(!d.online){heads.innerHTML='<strong>OFFLINE</strong>';}
       else if(list.length){
         const shown=list.slice(0,8);
-        heads.innerHTML=shown.map(p=>{const name=p.name_clean||p.name_raw||'Player',id=p.uuid||name;return `<img src="https://mc-heads.net/avatar/${encodeURIComponent(id)}/28" alt="${esc(name)}" title="${esc(name)}" loading="lazy">`}).join('')+`<span class="player-total">${online} / ${max}</span>`;
+        heads.innerHTML=shown.map(p=>{const name=p.name_clean||p.name_raw||'Player',id=p.uuid||name;return `<img src="https://api.mcskin.me/head/${encodeURIComponent(id)}?size=28" alt="${esc(name)}" title="${esc(name)}" loading="lazy">`}).join('')+`<span class="player-total">${online} / ${max}</span>`;
       }else{
         heads.innerHTML=`<strong class="player-count-only">${online} / ${max}</strong>`;
         heads.title='The server is not exposing online player names.';

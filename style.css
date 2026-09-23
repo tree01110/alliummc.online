@@ -78,3 +78,73 @@ footer{border-top:1px solid var(--line);padding:27px 0;color:var(--muted);font-s
 @media(max-width:1100px){.server-status-bar{grid-template-columns:repeat(3,1fr);max-width:760px}.status-item{border-bottom:1px solid var(--line)}.status-item:nth-last-child(-n+2){border-bottom:0}}
 @media(max-width:800px){.server-status-bar{grid-template-columns:1fr 1fr}.status-item:nth-last-child(2){border-bottom:1px solid var(--line)}}
 @media(max-width:500px){.server-status-bar{grid-template-columns:1fr}.status-item{min-height:68px}.age-status small{white-space:normal}}
+
+
+/* Coherent homepage status dashboard */
+.server-status-bar{
+  width:min(1120px,100%);
+  max-width:1120px;
+  grid-template-columns:1.08fr 1.45fr 1.18fr 1.38fr 1.72fr;
+  align-items:stretch;
+}
+.status-item{
+  min-height:106px;
+  padding:15px 18px 14px;
+  justify-content:flex-start;
+  gap:3px;
+}
+.status-item .stat-label{
+  display:block;
+  min-height:15px;
+  margin:0 0 5px;
+  font-size:10px;
+  line-height:15px;
+  font-weight:950;
+  letter-spacing:.13em;
+  color:#55dcff;
+  white-space:nowrap;
+}
+.server-state-line{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:26px;
+  white-space:nowrap;
+}
+.server-state-line .status-dot{flex:0 0 auto;margin:0}
+.player-heads{min-height:30px;margin-top:0}
+.discord-status{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:3px;
+}
+.discord-main{display:flex;align-items:center;gap:9px;min-height:30px}
+.discord-status .discord-main img{width:29px;height:29px;flex:0 0 29px;image-rendering:pixelated}
+.discord-numbers{display:flex;flex-direction:column;min-width:0}
+.discord-numbers strong{line-height:1.05}
+.discord-numbers small{margin-top:2px}
+.discord-join{position:absolute;right:12px;bottom:11px}
+.age-status strong{font-size:16px;line-height:1.25}
+.address-status{padding-right:62px}
+.address-status code{margin-top:3px;font-size:12px;overflow:visible;text-overflow:clip}
+@media(max-width:1100px){
+  .server-status-bar{grid-template-columns:repeat(3,minmax(0,1fr));max-width:100%}
+  .status-item{border-bottom:1px solid var(--line)}
+  .status-item:nth-child(3){border-right:0}
+  .status-item:nth-child(4),.status-item:nth-child(5){border-bottom:0}
+}
+@media(max-width:800px){
+  .server-status-bar{grid-template-columns:1fr 1fr}
+  .status-item:nth-child(3){border-right:1px solid var(--line)}
+  .status-item:nth-child(4){border-right:0}
+  .status-item:nth-child(4){border-bottom:1px solid var(--line)}
+  .status-item:nth-child(5){grid-column:1/-1}
+}
+@media(max-width:500px){
+  .server-status-bar{grid-template-columns:1fr}
+  .status-item{min-height:88px;border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .status-item:last-child{border-bottom:0!important}
+  .status-item:nth-child(5){grid-column:auto}
+}
